@@ -1,15 +1,19 @@
 $(document).ready(function(){
 
   // Timer constructor
-  function Timer() {
+  function Timer(duration) {
     var timer;
+    var globalInterval;
+    this.masterInterval = duration;
   }
 
-  Timer.prototype.startTimer = function(interval) {
+  Timer.prototype.startTimer = function() {
+    var interval = this.masterInterval;
     timer = setInterval(function(){
       if(interval > 0){
-       interval--;
-       console.log(interval);
+        interval--;
+        globalInterval = interval;
+        console.log(interval);
       }
       else {
         clearInterval(timer);
@@ -18,14 +22,14 @@ $(document).ready(function(){
   }
 
   Timer.prototype.stopTimer = function() {
-    console.log("Finished at: ", interval);
-   clearInterval(timer);
+    console.log("Finished at: ", globalInterval);
+    clearInterval(timer);
   };
 
-  var myTimer = new Timer();
-  var timer2 = new Timer();
-  timer2.startTimer(30);
-  $('#startBtn').click(function(){myTimer.startTimer(10);})
+  var myTimer = new Timer(10);
+  var timer2 = new Timer(30);
+  timer2.startTimer();
+  $('#startBtn').click(function(){myTimer.startTimer();})
   $('#stopBtn').click(function(){myTimer.stopTimer();})
 
 }); // end of DRF
