@@ -2,42 +2,34 @@ $(document).ready(function(){
 
   // Timer constructor
   function Timer(interval) {
-    this.interval = interval;
-    this.e = {};
-  }
+    var self = this;
 
-  Timer.prototype.startTimer = function(timerId) {
-    var interval = this.interval;
-    var e = this.e;
+    self.startTimer = function() {
+      self.handler = setInterval(function() {
+        self.countDown();
+      }, 1000);
+    };
 
-    this.timer = setInterval(function(){
+    self.stopTimer = function() {
+      clearInterval(self.handler);
+    };
+
+    self.countDown = function() {
       if (interval > 0){
-        elapsed = interval;
-        el = e;
-        el[timerId] = interval;
-        console.log(e);
+        console.log(interval);
         interval--;
-      }
-      else {
-        clearInterval(this.timer);
-      }
-    },1000);
+      };
+    };
   }
-
-  Timer.prototype.stopTimer = function(timerId) {
-    console.log("finished at: ", el);
-    clearInterval(this.timer);
-  };
 
   // Instantiate timers
-  var myTimer = new Timer(10);
-  var timer2 = new Timer(30);
-
-  // Start auto timer
-  //timer2.startTimer(2);
+  var timer1 = new Timer(10);
+  var timer2 = new Timer(5);
 
   // Bind another timer with click event
-  $('#startBtn').click(function(){myTimer.startTimer(1);})
-  $('#stopBtn').click(function(){myTimer.stopTimer(1);})
+  $('#startBtn1').click(function(){timer1.startTimer();})
+  $('#stopBtn1').click(function(){timer1.stopTimer();})
+  $('#startBtn2').click(function(){timer2.startTimer();})
+  $('#stopBtn2').click(function(){timer2.stopTimer();})
 
 }); // end of DRF
