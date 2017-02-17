@@ -40,3 +40,8 @@ h1 {
   text-align: center;
   margin: auto;
 }
+
+#timerDisplay {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4em;
+}

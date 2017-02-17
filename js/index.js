@@ -2,34 +2,42 @@ $(document).ready(function(){
 
   // Timer constructor
   function Timer(interval) {
-    var self = this;
+    var self = this;            // Save object scope
+    var rstInterval = interval; // Save interval value
 
     self.startTimer = function() {
       self.handler = setInterval(function() {
         self.countDown();
-      }, 1000);
+      }, 1000);                 // Run countDown() every 1s
     };
 
     self.stopTimer = function() {
       clearInterval(self.handler);
+      interval = rstInterval;
+      self.displayTimer();    
     };
+
+    self.pauseTimer = function() {
+      clearInterval(self.handler);
+    }
 
     self.countDown = function() {
       if (interval > 0){
-        console.log(interval);
         interval--;
+        self.displayTimer();
       };
     };
+
+    self.displayTimer = function() {
+      $("#timerDisplay").html(interval);
+    }
   }
 
   // Instantiate timers
-  var timer1 = new Timer(10);
-  var timer2 = new Timer(5);
+  var timer1 = new Timer(25);
 
-  // Bind another timer with click event
+  // Bind timers with click event
   $('#startBtn1').click(function(){timer1.startTimer();})
   $('#stopBtn1').click(function(){timer1.stopTimer();})
-  $('#startBtn2').click(function(){timer2.startTimer();})
-  $('#stopBtn2').click(function(){timer2.stopTimer();})
 
 }); // end of DRF
