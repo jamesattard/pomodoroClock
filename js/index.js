@@ -11,10 +11,10 @@ $(document).ready(function(){
       }, 1000);                 // Run countDown() every 1s
     };
 
-    self.stopTimer = function() {
+    self.resetTimer = function() {
       clearInterval(self.handler);
       interval = rstInterval;
-      self.displayTimer();    
+      self.displayTimer();
     };
 
     self.pauseTimer = function() {
@@ -37,7 +37,7 @@ $(document).ready(function(){
   var timer1 = new Timer(25);
 
   // Bind timers with click event
-  $('#startBtn1').click(function(){timer1.startTimer();})
-  $('#stopBtn1').click(function(){timer1.stopTimer();})
+  $('#startBtn').click(function(){timer1.startTimer();})
+  $('#resetBtn').click(function(){timer1.resetTimer();})
 
 }); // end of DRF

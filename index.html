@@ -25,11 +25,27 @@
 
     <!-- Pomodoro Container -->
     <div class="container">
-      <div id="timerDisplay">25</div>
-        <div class="timerControl">
-          <a class="btn btn-success" id="startBtn1">Start</a>
-          <a class="btn btn-danger" id="stopBtn1">Stop</a>
+      <div class="timerConfig">
+        <div class="sessionConf">
+          <p>Session Length</p>
+          <a class="btn btn-default" id="decSessionBtn">-</a>
+          <span id="sessionLength">&nbsp;25&nbsp;</span>
+          <a class="btn btn-default" id="incSessionBtn">+</a>
         </div>
+        <div class="breakConf">
+          <p>Break Length</p>
+          <a class="btn btn-default" id="decBreakBtn">-</a>
+          <span id="sessionLength">&nbsp;5&nbsp;</span>
+          <a class="btn btn-default" id="incBreakBtn">+</a>
+        </div>
+      </div>
+
+      <div id="timerDisplay">00:00</div>
+
+      <div class="timerStopStart">
+        <a class="btn btn-success" id="startBtn">Start</a>
+        <a class="btn btn-danger" id="resetBtn">Reset</a>
+      </div>
     </div>
 
     <!-- Footer -->
