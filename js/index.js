@@ -13,7 +13,7 @@ $(document).ready(function() {
       }, 1000);                 // Run countDown() every 1s
     };
 
-    self.stopTimer = function() {
+    self.resetTimer = function() {
       clearInterval(self.handler);
       interval = rstInterval;
       intervalSec = interval * 60;
@@ -51,7 +51,7 @@ $(document).ready(function() {
         $("#timerDisplay").html(minutes + ":" + seconds);
       } else {                  // If reset === 1, reset timerDisplay
         if (interval < 10) {
-          minutes = "0" + minutes;
+          interval = "0" + interval;
         }
         $("#timerDisplay").html(interval + ":" + "00");
       }
@@ -73,6 +73,6 @@ $(document).ready(function() {
 
   // Bind timers with click event
   $('#startBtn').click(function(){pomodoro.startTimer();})
-  $('#resetBtn').click(function(){pomodoro.stopTimer();})
+  $('#resetBtn').click(function(){pomodoro.resetTimer();})
 
 }); // end of DRF
