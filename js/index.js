@@ -1,9 +1,11 @@
 $(document).ready(function(){
 
   // Timer constructor
-  function Timer(interval) {
+  function Timer(interval) {    // interval in mins
     var self = this;            // Save object scope
+    var minutes, seconds;
     var rstInterval = interval; // Save interval value
+    var intervalSec = interval * 60;   // Convert to seconds
 
     self.startTimer = function() {
       self.handler = setInterval(function() {
@@ -14,7 +16,8 @@ $(document).ready(function(){
     self.stopTimer = function() {
       clearInterval(self.handler);
       interval = rstInterval;
-      self.displayTimer();
+      intervalSec = interval * 60;
+      self.displayTimer(0);
     };
 
     self.pauseTimer = function() {
@@ -22,22 +25,33 @@ $(document).ready(function(){
     }
 
     self.countDown = function() {
-      if (interval > 0){
-        interval--;
-        self.displayTimer();
+      minutes = parseInt(intervalSec / 60);
+      seconds = parseInt(intervalSec % 60);
+      if (intervalSec > 0){
+        intervalSec--;
+        self.displayTimer(1);
       };
     };
 
-    self.displayTimer = function() {
-      $("#timerDisplay").html(interval);
+    self.displayTimer = function(flag) {
+      if (flag === 1) {
+        if(seconds < 10)
+              seconds = "0"+seconds;
+        $("#timerDisplay").html(minutes + ":" + seconds);
+      } else {
+        $("#timerDisplay").html(interval + ":" + "00");
+      }
     }
   }
 
   // Instantiate timers
-  var timer1 = new Timer(25);
+  var sessionLen = 25;
+  var breakLen = 5;
+  var pomodoro = new Timer(sessionLen);
+  var breaker = new Timer(breakLen);
 
   // Bind timers with click event
-  $('#startBtn1').click(function(){timer1.startTimer();})
-  $('#stopBtn1').click(function(){timer1.stopTimer();})
+  $('#startBtn').click(function(){pomodoro.startTimer();})
+  $('#resetBtn').click(function(){pomodoro.stopTimer();})
 
 }); // end of DRF
