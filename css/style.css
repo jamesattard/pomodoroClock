@@ -1,5 +1,14 @@
 /* Common Styling */
 
+a[disabled] {
+  pointer-events: none;
+}
+
+a[disabled] > span,
+a[disabled] > i {
+  color: #939393;
+}
+
 body {
   background-color: #FFF;
   color: #FFF;
