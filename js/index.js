@@ -34,10 +34,10 @@ $(document).ready(function(){
   }
 
   // Instantiate timers
-  var pomodoro = new Timer(25);
+  var timer1 = new Timer(25);
 
   // Bind timers with click event
-  $('#startBtn1').click(function(){pomodoro.startTimer();})
-  $('#stopBtn1').click(function(){pomodoro.stopTimer();})
+  $('#startBtn1').click(function(){timer1.startTimer();})
+  $('#stopBtn1').click(function(){timer1.stopTimer();})
 
 }); // end of DRF

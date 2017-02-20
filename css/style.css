@@ -18,15 +18,9 @@ h1 {
   display: flex;
 }
 
-.container {
-  background-color: #2a2a2a;
-  border-radius:5px;
-  display: flex;
-  padding: 5%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1%;
+.text {
+  text-align: center;
+  margin: auto;
 }
 
 .footer {
@@ -36,9 +30,43 @@ h1 {
   margin-top: 1%;
 }
 
-.text {
+
+/* Pomodoro Styling */
+
+.container {
+  background-color: #2a2a2a;
+  border-radius:5px;
+  margin-top: 1%;
+  padding: 5%;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.timerConfig {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.breakConf {
+  flex: 1;
   text-align: center;
-  margin: auto;
+}
+
+.sessionConf {
+  flex: 1;
+  text-align: center;
 }
 
 #timerDisplay {
