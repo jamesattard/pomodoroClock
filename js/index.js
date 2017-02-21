@@ -71,33 +71,34 @@ $(document).ready(function() {
 
   // Handle Start click events
   $('#startBtn').click(function() {
-    if (document.getElementById("startBtn").hasAttribute("enabled")) {
-      // It's working time!
-      $("#status").text("working");
+    if ($('#status').text() == '--'
+          || $('#status').text() == 'Paused'
+          || $('#status').text() == 'Stopped')
+    {
+      $("#status").text("Working");
       $("#status").css("color", "#FF0");
       // Set button states
       $("#startBtn > i").attr("class", "fa fa-pause");
       $("#resetBtn").removeAttr("disabled");
-      $("#resetBtn").attr("enabled"); // could be superflous
-      $("#startBtn").removeAttr("enabled");
-      $("#resetBtn").attr("disabled"); // could be superflous
       // Start the Pomodoro Timer
       pomodoro.startTimer();
     } else {
-      $("#status").text("--");
-      // Pause timer
-      pomodoro.pauseTimer();
+      $("#status").text("Paused");
+      $("#status").css("color", "#FF0");
       // Set button states
       $("#startBtn > i").attr("class", "fa fa-play");
-      $("#resetBtn").removeAttr("disabled");
-      $("#resetBtn").attr("enabled"); // could be superflous
-      $("#startBtn").removeAttr("enabled");
-      $("#resetBtn").attr("disabled"); // could be superflous
+      // Pause timer
+      pomodoro.pauseTimer();
     }
   });
 
   // Handle Reset click events
   $('#resetBtn').click(function() {
+    $("#status").text("Stopped");
+    $("#status").css("color", "#FF0");
+    // Set button states
+    $("#startBtn > i").attr("class", "fa fa-play");
+    $("#resetBtn").attr("disabled", "disabled");
     pomodoro.resetTimer();
   });
 
