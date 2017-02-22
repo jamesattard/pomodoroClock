@@ -14,6 +14,7 @@ $(document).ready(function() {
         $("#status").text("Paused");
         $("#status").css("color", "#CD5C5C");
         $("#timerDisplay").css("color", "#CD5C5C");
+        $("#startBtn > i").attr("class", "fa fa-play");
         break;
       case 'break':
         $("#status").text("Break");
@@ -39,11 +40,8 @@ $(document).ready(function() {
 
   // Timer constructor
   function Timer() {
-    var self = this;                   // Save object scope
-    var interval, breaker;             // These following variables can be removed 99%
-    var rstInterval = interval;        // Save interval value
-    var intervalSec = interval * 60;   // Convert to seconds
-    var minutes, seconds;
+    var self = this; // Save object scope
+    var interval, breaker, rstInterval, intervalSec, minutes, seconds;
 
     self.initTimer = function(sessionLen, breakLen) {
       interval = sessionLen;
@@ -56,7 +54,7 @@ $(document).ready(function() {
     self.startTimer = function() {
       self.handler = setInterval(function() {
         self.countDown();
-      }, 1000);                 // Run countDown() every 1s
+      }, 1000); // Run countDown() every 1s
     };
 
     self.resetTimer = function() {
@@ -114,7 +112,7 @@ $(document).ready(function() {
   var breakLen = 2;
   $("#breakLength").html(breakLen);
 
-  var pomodoro = new Timer();
+  var pomodoro = new Timer(); // Instantiate Timer() object
 
   // Handle Session Length click events
   $('#incSessionBtn').click(function() {
@@ -124,6 +122,7 @@ $(document).ready(function() {
       $("#sessionLength").html(sessionLen);
     }
   });
+
   $('#decSessionBtn').click(function() {
     if ($("#sessionLength").html() > 0){
       sessionLen = parseInt($("#sessionLength").html());
@@ -140,6 +139,7 @@ $(document).ready(function() {
       $("#breakLength").html(breakLen);
     }
   });
+
   $('#decBreakBtn').click(function() {
     if ($("#sessionLength").html() > 0){
       breakLen = parseInt($("#breakLength").html());
@@ -161,8 +161,6 @@ $(document).ready(function() {
       pomodoro.startTimer();
     } else {
       pomodoroState('pause');
-      // Set button states
-      $("#startBtn > i").attr("class", "fa fa-play");
       pomodoro.pauseTimer();
     }
   });
