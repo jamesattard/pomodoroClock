@@ -84,6 +84,7 @@ $(document).ready(function() {
       }
       else if ($('#status').text() == 'Break') {
         pomodoroState('work');
+        breakState = false;
         interval = rstInterval;
         intervalSec = interval * 60;
       }
