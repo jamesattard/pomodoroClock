@@ -31,10 +31,21 @@ $(document).ready(function() {
       if (intervalSec > 0){
         intervalSec--;
         self.displayTimer(0);
-      } else { // Break Time
-        interval = 5;
+      }
+      else if ($('#status').text() == 'Working') {
+        $("#status").text("Break");
+        $("#status").css("color", "#FFC300");
+        $("#timerDisplay").css("color", "#FFC300");
+        interval = breakLen;
         intervalSec = interval * 60;
-      };
+      }
+      else if ($('#status').text() == 'Break') {
+        $("#status").text("Working");
+        $("#status").css("color", "#DAF7A6");
+        $("#timerDisplay").css("color", "#DAF7A6");
+        interval = rstInterval;
+        intervalSec = interval * 60;
+      }
     };
 
     self.displayTimer = function(reset) {
@@ -60,14 +71,13 @@ $(document).ready(function() {
 
   // Default Pomodoro settings
   var sessionLen = 1;
-  var breakLen = 5;
+  var breakLen = 2;
 
   // Bind user Pomodoro settings with click event
   // sessionLen =
   // breakLen =
 
   var pomodoro = new Timer(sessionLen);
-  var breaker = new Timer(breakLen);
 
   // Handle Start click events
   $('#startBtn').click(function() {
@@ -76,7 +86,8 @@ $(document).ready(function() {
           || $('#status').text() == 'Stopped')
     {
       $("#status").text("Working");
-      $("#status").css("color", "#FF0");
+      $("#status").css("color", "#DAF7A6");
+      $("#timerDisplay").css("color", "#DAF7A6");
       // Set button states
       $("#startBtn > i").attr("class", "fa fa-pause");
       $("#resetBtn").removeAttr("disabled");
@@ -84,7 +95,8 @@ $(document).ready(function() {
       pomodoro.startTimer();
     } else {
       $("#status").text("Paused");
-      $("#status").css("color", "#FF0");
+      $("#status").css("color", "#FF5733");
+      $("#timerDisplay").css("color", "#FF5733");
       // Set button states
       $("#startBtn > i").attr("class", "fa fa-play");
       // Pause timer
@@ -95,7 +107,8 @@ $(document).ready(function() {
   // Handle Reset click events
   $('#resetBtn').click(function() {
     $("#status").text("Stopped");
-    $("#status").css("color", "#FF0");
+    $("#status").css("color", "#CD5C5C");
+    $("#timerDisplay").css("color", "#CD5C5C");
     // Set button states
     $("#startBtn > i").attr("class", "fa fa-play");
     $("#resetBtn").attr("disabled", "disabled");
