@@ -58,6 +58,8 @@ h1 {
 }
 
 .timerConfig {
+  font-family: 'Lobster', cursive;
+  font-size: 1.5em;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -86,5 +88,6 @@ h1 {
 #timerDisplay {
   font-family: 'Orbitron', sans-serif;
   font-size: 6em;
+  color: #FF5733;
   padding-top: 5%;
 }
