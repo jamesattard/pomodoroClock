@@ -87,10 +87,11 @@ $(document).ready(function() {
         }
         $("#timerDisplay").html(minutes + ":" + seconds);
       } else {                  // If reset === 1, reset timerDisplay
-        if (interval < 10) {
-          interval = "0" + interval;
-        }
-        $("#timerDisplay").html(interval + ":" + "00");
+        // if (interval < 10) {
+        //   interval = "0" + interval;
+        // }
+        // $("#timerDisplay").html(interval + ":" + "00");
+        $("#timerDisplay").html("00:00");
       }
     };
 
@@ -105,6 +106,16 @@ $(document).ready(function() {
   // breakLen =
 
   var pomodoro = new Timer(sessionLen);
+
+  // Handle Session Length click events
+  $('#startBtn').click(function() {
+
+  });
+
+  // Handle Break Length click events
+  $('#startBtn').click(function() {
+
+  });
 
   // Handle Start click events
   $('#startBtn').click(function() {
