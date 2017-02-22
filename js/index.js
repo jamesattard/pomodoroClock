@@ -7,6 +7,8 @@ $(document).ready(function() {
         $("#status").text("Working");
         $("#status").css("color", "#DAF7A6");
         $("#timerDisplay").css("color", "#DAF7A6");
+        $("#startBtn > i").attr("class", "fa fa-pause");
+        $("#resetBtn").removeAttr("disabled");
         break;
       case 'pause':
         $("#status").text("Paused");
@@ -17,11 +19,15 @@ $(document).ready(function() {
         $("#status").text("Break");
         $("#status").css("color", "#FFC300");
         $("#timerDisplay").css("color", "#FFC300");
+        $("#startBtn > i").attr("class", "fa fa-pause");
+        $("#resetBtn").removeAttr("disabled");
         break;
       case 'stop':
         $("#status").text("Stopped");
         $("#status").css("color", "#FF5733");
         $("#timerDisplay").css("color", "#FF5733");
+        $("#startBtn > i").attr("class", "fa fa-play");
+        $("#resetBtn").attr("disabled", "disabled");
         break;
       default:
         $("#status").text("Working");
@@ -34,7 +40,7 @@ $(document).ready(function() {
   // Timer constructor
   function Timer() {
     var self = this;                   // Save object scope
-    var interval, breaker;
+    var interval, breaker;             // These following variables can be removed 99%
     var rstInterval = interval;        // Save interval value
     var intervalSec = interval * 60;   // Convert to seconds
     var minutes, seconds;
@@ -74,6 +80,7 @@ $(document).ready(function() {
       }
       else if ($('#status').text() == 'Working') {
         pomodoroState('break');
+        breakState = true;
         interval = breaker;
         intervalSec = interval * 60;
       }
@@ -86,8 +93,6 @@ $(document).ready(function() {
 
     self.displayTimer = function(reset) {
       if (reset === 0) {         // If reset === 0, resume timerDisplay
-        console.log("Seconds: ", seconds);
-        console.log("Minutes: ", minutes);
         if (seconds < 10 && seconds.length != 2) {
           seconds = "0" + seconds;
         }
@@ -103,6 +108,7 @@ $(document).ready(function() {
   } // end of Timer()
 
   // Default Pomodoro settings
+  var breakState = false;
   var sessionLen = 1;
   $("#sessionLength").html(sessionLen);
   var breakLen = 2;
@@ -146,23 +152,17 @@ $(document).ready(function() {
   $('#startBtn').click(function() {
     if ($('#status').text() == '--' || $('#status').text() == 'Stopped') {
       pomodoroState('work');
-      // Set button states
-      $("#startBtn > i").attr("class", "fa fa-pause");
-      $("#resetBtn").removeAttr("disabled");
-      // Initialise the Pomodoro Timer
       pomodoro.initTimer(sessionLen, breakLen);
-    } else if ($('#status').text() == 'Paused') {
+    } else if ($('#status').text() == 'Paused' && !breakState) {
       pomodoroState('work');
-      // Set button states
-      $("#startBtn > i").attr("class", "fa fa-pause");
-      $("#resetBtn").removeAttr("disabled");
-      // Start the Pomodoro Timer
+      pomodoro.startTimer();
+    } else if ($('#status').text() == 'Paused' && breakState) {
+      pomodoroState('break');
       pomodoro.startTimer();
     } else {
       pomodoroState('pause');
       // Set button states
       $("#startBtn > i").attr("class", "fa fa-play");
-      // Pause timer
       pomodoro.pauseTimer();
     }
   });
@@ -170,9 +170,6 @@ $(document).ready(function() {
   // Handle Reset click events
   $('#resetBtn').click(function() {
     pomodoroState('stop');
-    // Set button states
-    $("#startBtn > i").attr("class", "fa fa-play");
-    $("#resetBtn").attr("disabled", "disabled");
     pomodoro.resetTimer();
   });
 
