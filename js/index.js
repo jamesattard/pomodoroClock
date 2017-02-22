@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
   // Timer constructor
-  function Timer(interval) {    // interval in mins
-    var self = this;            // Save object scope
-    var rstInterval = interval; // Save interval value
+  function Timer(interval) {           // interval in mins
+    var self = this;                   // Save object scope
+    var rstInterval = interval;        // Save interval value
     var intervalSec = interval * 60;   // Convert to seconds
     var minutes, seconds;
 
@@ -22,8 +22,6 @@ $(document).ready(function() {
 
     self.pauseTimer = function() {
       clearInterval(self.handler);
-      interval = rstInterval;
-      intervalSec = interval * 60;
       self.displayTimer(0);
     };
 
@@ -41,10 +39,12 @@ $(document).ready(function() {
 
     self.displayTimer = function(reset) {
       if (reset === 0) {         // If reset === 0, resume timerDisplay
-        if (seconds < 10 && seconds !== '00') {
+        console.log("Seconds: ", seconds);
+        console.log("Minutes: ", minutes);
+        if (seconds < 10 && seconds.length != 2) {
           seconds = "0" + seconds;
         }
-        if (minutes < 10 && minutes !== '00') {
+        if (minutes < 10 && minutes.length != 2) {
           minutes = "0" + minutes;
         }
         $("#timerDisplay").html(minutes + ":" + seconds);
