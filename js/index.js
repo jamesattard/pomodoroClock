@@ -108,9 +108,9 @@ $(document).ready(function() {
 
   // Default Pomodoro settings
   var breakState = false;
-  var sessionLen = 1;
+  var sessionLen = 25;
   $("#sessionLength").html(sessionLen);
-  var breakLen = 2;
+  var breakLen = 5;
   $("#breakLength").html(breakLen);
 
   var pomodoro = new Timer(); // Instantiate Timer() object
