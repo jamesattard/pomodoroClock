@@ -29,14 +29,23 @@ $(document).ready(function() {
         $("#timerDisplay").css("color", "#DAF7A6");
         break;
     }
-  };
+  }; // end of pomodoroState()
 
   // Timer constructor
-  function Timer(interval) {           // interval in mins
+  function Timer() {
     var self = this;                   // Save object scope
+    var interval, breaker;
     var rstInterval = interval;        // Save interval value
     var intervalSec = interval * 60;   // Convert to seconds
     var minutes, seconds;
+
+    self.initTimer = function(sessionLen, breakLen) {
+      interval = sessionLen;
+      breaker = breakLen;
+      rstInterval = interval;
+      intervalSec = interval * 60;
+      self.startTimer();
+    }
 
     self.startTimer = function() {
       self.handler = setInterval(function() {
@@ -65,7 +74,7 @@ $(document).ready(function() {
       }
       else if ($('#status').text() == 'Working') {
         pomodoroState('break');
-        interval = breakLen;
+        interval = breaker;
         intervalSec = interval * 60;
       }
       else if ($('#status').text() == 'Break') {
@@ -87,10 +96,6 @@ $(document).ready(function() {
         }
         $("#timerDisplay").html(minutes + ":" + seconds);
       } else {                  // If reset === 1, reset timerDisplay
-        // if (interval < 10) {
-        //   interval = "0" + interval;
-        // }
-        // $("#timerDisplay").html(interval + ":" + "00");
         $("#timerDisplay").html("00:00");
       }
     };
@@ -99,30 +104,54 @@ $(document).ready(function() {
 
   // Default Pomodoro settings
   var sessionLen = 1;
+  $("#sessionLength").html(sessionLen);
   var breakLen = 2;
+  $("#breakLength").html(breakLen);
 
-  // Bind user Pomodoro settings with click event
-  // sessionLen =
-  // breakLen =
-
-  var pomodoro = new Timer(sessionLen);
+  var pomodoro = new Timer();
 
   // Handle Session Length click events
-  $('#startBtn').click(function() {
-
+  $('#incSessionBtn').click(function() {
+    if ($("#sessionLength").html() > 0){
+      sessionLen = parseInt($("#sessionLength").html());
+      sessionLen+=1;
+      $("#sessionLength").html(sessionLen);
+    }
+  });
+  $('#decSessionBtn').click(function() {
+    if ($("#sessionLength").html() > 0){
+      sessionLen = parseInt($("#sessionLength").html());
+      sessionLen-=1;
+      $("#sessionLength").html(sessionLen);
+    }
   });
 
   // Handle Break Length click events
-  $('#startBtn').click(function() {
-
+  $('#incBreakBtn').click(function() {
+    if ($("#sessionLength").html() > 0){
+      breakLen = parseInt($("#sessionLength").html());
+      breakLen+=1;
+      $("#breakLength").html(breakLen);
+    }
+  });
+  $('#decBreakBtn').click(function() {
+    if ($("#sessionLength").html() > 0){
+      breakLen = parseInt($("#breakLength").html());
+      breakLen-=1;
+      $("#breakLength").html(breakLen);
+    }
   });
 
   // Handle Start click events
   $('#startBtn').click(function() {
-    if ($('#status').text() == '--'
-          || $('#status').text() == 'Paused'
-          || $('#status').text() == 'Stopped')
-    {
+    if ($('#status').text() == '--' || $('#status').text() == 'Stopped') {
+      pomodoroState('work');
+      // Set button states
+      $("#startBtn > i").attr("class", "fa fa-pause");
+      $("#resetBtn").removeAttr("disabled");
+      // Initialise the Pomodoro Timer
+      pomodoro.initTimer(sessionLen, breakLen);
+    } else if ($('#status').text() == 'Paused') {
       pomodoroState('work');
       // Set button states
       $("#startBtn > i").attr("class", "fa fa-pause");
